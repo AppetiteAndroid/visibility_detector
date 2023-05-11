@@ -125,12 +125,12 @@ class VisibilityInfo {
 
     final bool overlaps = widgetBounds.overlaps(clipRect);
     // Compute the intersection in the widget's local coordinates.
-    final visibleBounds = overlaps ? widgetBounds.contains(clipRect) : Rect.zero;
+    final visibleBounds = overlaps ? widgetBounds.overlaps(clipRect).shift(-widgetBounds.topLeft) : Rect.zero;
 
     return VisibilityInfo(
       key: key,
       size: widgetBounds.size,
-      visibleBounds: visibleBounds,
+      visibleBounds: widgetBounds,
     );
   }
 
