@@ -130,7 +130,7 @@ class VisibilityInfo {
     return VisibilityInfo(
       key: key,
       size: widgetBounds.size,
-      visibleBounds: widgetBounds.shift(-clipRect.top),
+      visibleBounds: widgetBounds.shift(-clipRect.topLeft),
     );
   }
 
