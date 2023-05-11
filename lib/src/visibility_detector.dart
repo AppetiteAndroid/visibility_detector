@@ -49,8 +49,7 @@ class VisibilityDetector extends SingleChildRenderObjectWidget {
 
   /// See [RenderObjectWidget.updateRenderObject].
   @override
-  void updateRenderObject(
-      BuildContext context, RenderVisibilityDetector renderObject) {
+  void updateRenderObject(BuildContext context, RenderVisibilityDetector renderObject) {
     assert(renderObject.key == key);
     renderObject.onVisibilityChanged = onVisibilityChanged;
   }
@@ -86,8 +85,7 @@ class SliverVisibilityDetector extends SingleChildRenderObjectWidget {
 
   /// See [RenderObjectWidget.updateRenderObject].
   @override
-  void updateRenderObject(
-      BuildContext context, RenderSliverVisibilityDetector renderObject) {
+  void updateRenderObject(BuildContext context, RenderSliverVisibilityDetector renderObject) {
     assert(renderObject.key == key);
     renderObject.onVisibilityChanged = onVisibilityChanged;
   }
@@ -127,14 +125,12 @@ class VisibilityInfo {
 
     final bool overlaps = widgetBounds.overlaps(clipRect);
     // Compute the intersection in the widget's local coordinates.
-    final visibleBounds = overlaps
-        ? widgetBounds.intersect(clipRect).shift(-widgetBounds.topLeft)
-        : Rect.zero;
+    final visibleBounds = overlaps ? widgetBounds.intersect(clipRect).shift(-widgetBounds.topLeft) : Rect.zero;
 
     return VisibilityInfo(
       key: key,
       size: widgetBounds.size,
-      visibleBounds: visibleBounds,
+      visibleBounds: widgetBounds,
     );
   }
 
@@ -187,7 +183,6 @@ class VisibilityInfo {
     // from whether two [VisibilityInfo] objects are sufficiently similar
     // that we don't need to fire callbacks for both.  This could be pertinent
     // if other properties are added.
-    assert(info != null);
     return size == info.size && visibleBounds == info.visibleBounds;
   }
 
@@ -201,10 +196,7 @@ class VisibilityInfo {
 
   @override
   bool operator ==(Object other) {
-    return other is VisibilityInfo &&
-        other.key == key &&
-        other.size == size &&
-        other.visibleBounds == visibleBounds;
+    return other is VisibilityInfo && other.key == key && other.size == size && other.visibleBounds == visibleBounds;
   }
 }
 
@@ -223,6 +215,5 @@ double _area(Size size) {
 /// Returns whether two floating-point values are approximately equal.
 bool _floatNear(double f1, double f2) {
   final absDiff = (f1 - f2).abs();
-  return absDiff <= _kDefaultTolerance ||
-      (absDiff / max(f1.abs(), f2.abs()) <= _kDefaultTolerance);
+  return absDiff <= _kDefaultTolerance || (absDiff / max(f1.abs(), f2.abs()) <= _kDefaultTolerance);
 }
